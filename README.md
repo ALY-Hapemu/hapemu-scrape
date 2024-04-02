@@ -1,7 +1,7 @@
 # hapemu-scrape
 
 ## DxOMark
-How to get smartphones list from JSON:
+How to get smartphones list from DxOMark
 1. Fetch DxOMark and output to a file (e.g. `dxomark.html`)
 ```bash
 curl 'https://www.dxomark.com/smartphones/' \                                                                                                                    12s 19:29:22
