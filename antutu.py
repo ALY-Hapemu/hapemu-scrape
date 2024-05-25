@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import json
 import os
 
-ANTUTU_URL = "https://www.antutu.com/en/ranking/rank1.htm"
-
 def fetch_html(url):
     return requests.get(url)
 
@@ -35,15 +33,22 @@ def parse_data(html):
     
     return smartphones
 
-def write_to_json_file(data):
+def write_to_json_file(data, filename):
     output_folder = "results"
-    output_file = os.path.join(output_folder, "antutu.json")
+    output_file = os.path.join(output_folder, filename)
 
     os.makedirs(output_folder, exist_ok=True)
 
     with open(output_file, 'w') as file:
         json.dump(data, file, indent=4)
 
-html = fetch_html(ANTUTU_URL)
-parsed_data = parse_data(html)
-write_to_json_file(parsed_data)
+urls = [
+    "https://www.antutu.com/en/ranking/rank1.htm", # Android ranking url
+    "https://www.antutu.com/en/ranking/ios1.htm" # iOS ranking url
+]
+for url in urls:
+    html = fetch_html(url)
+    parsed_data = parse_data(html)
+
+    filename = f"antutu_{url.split('/')[-1].replace('.htm', '')}.json"
+    write_to_json_file(parsed_data, filename)
