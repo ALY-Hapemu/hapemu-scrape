@@ -17,6 +17,7 @@ source venv/bin/activate
 ```
 
 On Windows:
+
 ```bash
 .\venv\Scripts\activate
 ```
@@ -33,7 +34,7 @@ pip3 install -r requirements.txt
 python3 <file_name>.py
 ```
 
-5. Deactivate the Virtual Environment:
+5. Deactivate the Virtual Environment
 
 When you're done, you can deactivate the virtual environment by running:
 
