@@ -1,7 +1,7 @@
 import requests
-from bs4 import BeautifulSoup
 import json
 import os
+from bs4 import BeautifulSoup
 
 def fetch_html(url):
     return requests.get(url)
@@ -42,13 +42,18 @@ def write_to_json_file(data, filename):
     with open(output_file, 'w') as file:
         json.dump(data, file, indent=4)
 
-urls = [
-    "https://www.antutu.com/en/ranking/rank1.htm", # Android ranking url
-    "https://www.antutu.com/en/ranking/ios1.htm" # iOS ranking url
-]
-for url in urls:
-    html = fetch_html(url)
-    parsed_data = parse_data(html)
+""" Main """
+def main():
+    urls = [
+        "https://www.antutu.com/en/ranking/rank1.htm", # Android ranking url
+        "https://www.antutu.com/en/ranking/ios1.htm" # iOS ranking url
+    ]
+    for url in urls:
+        html = fetch_html(url)
+        parsed_data = parse_data(html)
 
-    filename = f"antutu_{url.split('/')[-1].replace('.htm', '')}.json"
-    write_to_json_file(parsed_data, filename)
+        filename = f"antutu_{url.split('/')[-1].replace('.htm', '')}.json"
+        write_to_json_file(parsed_data, filename)
+
+if __name__ == "__main__":
+    main()

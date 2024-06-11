@@ -1,20 +1,27 @@
-import re
 import json
+import os
+import re
+import requests
+from bs4 import BeautifulSoup
 
-DXOMARK_URL = "aaa"
-INPUT_FILE = "dxomark.html"
-OUTPUT_FILE = "dxomark.json"
+DXOMARK_URL = 'https://www.dxomark.com/smartphones/'
+FILENAME = "dxomark.json"
 
-# TODO: get content from website
+if __name__ == "__main__":
+    html = requests.get(DXOMARK_URL)
+    soup = BeautifulSoup(html.content, "html.parser")
 
-with open(INPUT_FILE, 'r') as file:
-    content = file.read()
+    match = re.search(r'var smartphonesAsJson = (.*);', soup.prettify())
 
-match = re.search(r'var smartphonesAsJson = (.*);', content)
+    if match:
+        json_str = match.group(1)
+        data = json.loads(json_str)
 
-if match:
-    json_str = match.group(1)
-    data = json.loads(json_str)
+        output_folder = "results"
+        output_file = os.path.join(output_folder, FILENAME)
 
-    with open(OUTPUT_FILE, 'w') as file:
-        json.dump(data, file, indent=4)
+        os.makedirs(output_folder, exist_ok=True)
+
+        with open(output_file, 'w') as file:
+            json.dump(data, file, indent=4)
+            print('Success.')
