@@ -158,7 +158,7 @@ def get_smartphone_urls_in_current_page(url):
         pages_list = soup.find('div', class_='nav-pages')
         if pages_list:
             strong_tag = pages_list.find('strong')
-            next_page_url = f'{GSMARENA_URL}/{strong_tag.find_next('a')['href']}'
+            next_page_url = f"{GSMARENA_URL}/{strong_tag.find_next('a')['href']}"
 
     return smartphone_urls, next_page_url
 
